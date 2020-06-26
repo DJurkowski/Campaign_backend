@@ -19,6 +19,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+/**  
+* GET api/projects
+* Purpose: Get a specific project
+*/
+router.get('/:id', async (req, res) => {
+    try {
+        const project = await Project.findOne({ _id: req.params.id});
+
+        res.json(project);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 /**  
 * Post api/projects
 * Purpose: Create a project

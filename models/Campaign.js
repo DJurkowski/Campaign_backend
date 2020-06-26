@@ -6,7 +6,10 @@ const CampaignSchema = new mongoose.Schema({
         required: true,
         minlength: 1
     },
-    keywords: [String],
+    keywords: {
+        type: String,
+        required: true
+    },
     bidAmount: {
         type: Number,
         required: true

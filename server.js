@@ -5,8 +5,11 @@ const app = express();
 
 app.use(cors());
 
+connectDB();
+
 app.use(express.json({extended: false}));
 
+app.use('/api/projects', require('./routes/project'));
 
 const PORT = process.env.PORT || 5000;
 

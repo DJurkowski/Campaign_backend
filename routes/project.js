@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Project = require('../models/Project');
 const Campaign = require('../models/Campaign');
+const Emerald = require('../models/Emerald');
 
 /**  
 * GET api/projects
@@ -49,10 +50,32 @@ router.post('/', async (req, res) => {
 
         await project.save();
 
+        const emerald = new Emerald({
+            funds: Math.floor(Math.random() * 10000) + 10000000,
+            _projectId: project._id
+        });
+
+        await emerald.save();
+
         res.json(project);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
+    }
+});
+
+/**  
+* GET api/projects/:projectId/emerald
+* Purpose: Get emerald account funds
+*/
+router.get('/:projectId/emerald', async (req, res) => {
+    try {
+        const emerald = await Emerald.find({ _projectId: req.params.projectId });
+
+        res.json(emerald);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 
@@ -67,7 +90,7 @@ router.patch('/:id', async (req, res) => {
             { $set: req.body }
             );
 
-            res.json({messgae: 'Updated successfully'});
+            res.json({msg: 'Updated successfully'});
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');

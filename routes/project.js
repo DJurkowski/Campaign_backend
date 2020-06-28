@@ -186,7 +186,7 @@ router.patch('/:projectId/campaign/:id', async (req, res) => {
             { $set: req.body }
         );
 
-        res.json({messgae: 'Updated successfully'});
+        res.json({msg: 'Updated successfully'});
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -209,7 +209,7 @@ router.delete('/:projectId/campaign/:id', async (req, res) => {
             _projectId: req.params.projectId
         });
 
-        res.status(200).json({msg: 'Removed'});
+        res.status(200).json({msg: ' Campaign removed'});
     } catch (err) {
         console.error(err.message);
         if(err.kind === 'ObjectId') { 
